@@ -5,14 +5,16 @@ const sharp = require('sharp');
 
 // Configuration
 const TARGET_DIR = path.join(__dirname, '../src/assets/photography');
-const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
+const MAX_SIZE_BYTES = 2 * 1024 * 1024; // 2MB
 
 // Helpers
 const formatSize = (bytes) => `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 
 async function processFile(filePath) {
     try {
+        const inputBuffer = fs.readFileSync(filePath);
         const stats = fs.statSync(filePath);
+        
         if (stats.size <= MAX_SIZE_BYTES) {
             return;
         }
@@ -21,7 +23,7 @@ async function processFile(filePath) {
         console.log(`Processing...`);
 
         const ext = path.extname(filePath).toLowerCase();
-        let pipeline = sharp(filePath);
+        let pipeline = sharp(inputBuffer);
         const metadata = await pipeline.metadata();
 
         // Initial strategy: Resize to 4K if larger, and apply moderate compression
@@ -36,17 +38,24 @@ async function processFile(filePath) {
         
         // Loop to find suitable parameters
         while (true) {
-            if (ext === '.jpg' || ext === '.jpeg') {
-                pipeline = pipeline.jpeg({ quality });
-            } else if (ext === '.png') {
-                // PNG is hard to compress under size limit without changing format or losing transparency
-                // We try to use palette if possible or max compression
-                pipeline = pipeline.png({ compressionLevel: 9, palette: true });
-            } else if (ext === '.webp') {
-                pipeline = pipeline.webp({ quality });
+            // Re-initialize pipeline with buffer or resized buffer to avoid accumulating operations
+            // Note: simpler to just rebuild pipeline chain from input or intermediate buffer
+            // For simplicity in this loop, we'll just re-create the sharp instance from inputBuffer and apply current settings
+            
+            let currentPipeline = sharp(inputBuffer);
+            if (width < metadata.width) {
+                currentPipeline = currentPipeline.resize(width);
             }
 
-            buffer = await pipeline.toBuffer();
+            if (ext === '.jpg' || ext === '.jpeg') {
+                currentPipeline = currentPipeline.jpeg({ quality });
+            } else if (ext === '.png') {
+                currentPipeline = currentPipeline.png({ compressionLevel: 9, palette: true });
+            } else if (ext === '.webp') {
+                currentPipeline = currentPipeline.webp({ quality });
+            }
+
+            buffer = await currentPipeline.toBuffer();
 
             if (buffer.length < MAX_SIZE_BYTES) {
                 break;
@@ -55,14 +64,12 @@ async function processFile(filePath) {
             // If still too big, reduce quality or size
             if (quality > 50) {
                 quality -= 10;
-                console.log(`  Still > 5MB, reducing quality to ${quality}...`);
+                console.log(`  Still > 2MB, reducing quality to ${quality}...`);
             } else if (width > 1920) {
                 width = Math.floor(width * 0.8);
-                console.log(`  Still > 5MB, resizing to width ${width}...`);
-                // Re-create pipeline with new resize
-                pipeline = sharp(filePath).resize(width);
+                console.log(`  Still > 2MB, resizing to width ${width}...`);
             } else {
-                console.warn(`  Warning: Could not compress ${path.basename(filePath)} under 5MB even with aggressive settings. Saving best effort.`);
+                console.warn(`  Warning: Could not compress ${path.basename(filePath)} under 2MB even with aggressive settings. Saving best effort.`);
                 break;
             }
         }

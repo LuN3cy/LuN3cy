@@ -34,11 +34,11 @@ export interface Project {
   category: Category;
   description: string;
   role: string;
-  image: string; // URL placeholder
+  image: string; // URL placeholder (Cover/Thumbnail)
   videoUrl?: string; // URL to .mp4 file
   bilibiliId?: string; // Bilibili Video ID (e.g. BV1xx...)
   figmaUrl?: string; // Figma File URL
-  gallery?: string[]; // Additional images
+  gallery?: string[]; // Additional images (URLs)
   externalLink?: string; // External link (e.g. Bilibili, Behance)
   tags: string[];
   // New detailed fields

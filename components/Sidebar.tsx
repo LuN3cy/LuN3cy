@@ -42,7 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           flex items-center justify-between 
           transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]
           ${isScrolled 
-            ? 'w-[92vw] md:w-auto gap-4 md:gap-12 bg-white/90 dark:bg-black/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 rounded-full px-6 md:px-10 py-3 md:py-4 shadow-pill dark:shadow-pill-dark' 
+            ? 'w-[92vw] md:w-auto gap-2 md:gap-12 bg-white/90 dark:bg-black/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 rounded-full px-6 md:px-10 py-3 md:py-4 shadow-pill dark:shadow-pill-dark' 
             : 'w-[96vw] bg-transparent border-transparent shadow-none px-0 py-2 backdrop-blur-none'}
         `}
       >
@@ -52,15 +52,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className="cursor-pointer flex items-center gap-2 group shrink-0"
           onClick={() => setActiveTab('dashboard')}
         >
-          <h1 className={`font-black tracking-tighter uppercase transition-all duration-500 ease-in-out text-black dark:text-white
-            ${isScrolled ? 'text-xl md:text-3xl' : 'text-2xl md:text-5xl'}
+          <h1 className={`font-black tracking-tighter uppercase transition-all duration-500 ease-in-out text-black dark:text-white leading-none
+            ${isScrolled ? 'text-xl md:text-3xl' : 'text-[clamp(1.25rem,3vw,3rem)]'}
           `}>
             LUN3CY <span className="hidden sm:inline">FAN</span>
           </h1>
         </div>
 
         {/* Links Right */}
-        <div className={`flex items-center transition-all duration-700 overflow-x-auto no-scrollbar mask-gradient ${isScrolled ? 'gap-4 md:gap-8' : 'gap-6 md:gap-12'}`}>
+        <div className={`flex items-center transition-all duration-700 overflow-x-auto no-scrollbar mask-gradient
+            ${isScrolled ? 'gap-2 md:gap-8' : 'gap-3 md:gap-12'}
+        `}>
           {items.map((item) => {
             const isActive = activeTab === item.id;
             return (

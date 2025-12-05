@@ -367,7 +367,7 @@ function App() {
       case 'articles':
         return (
           <div className="pt-20 w-full max-w-[96vw] mx-auto">
-             <div className="mb-24">
+             <div className="mb-24 flex flex-col items-center text-center">
                <h1 className="text-[8vw] leading-none font-black mb-8 text-black dark:text-white transition-colors duration-300">
                  {ARTICLES_PAGE_DATA[language].title}
                </h1>

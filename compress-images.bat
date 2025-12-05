@@ -4,7 +4,7 @@ echo       LuN3cy Image Compressor Tool
 echo ========================================================
 echo.
 echo This tool scans your photography folder and automatically 
-echo compresses any image larger than 5MB.
+echo compresses any image larger than 2MB.
 echo.
 
 cd /d "%~dp0"

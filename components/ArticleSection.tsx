@@ -27,7 +27,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
   return (
     <div className="w-full max-w-[96vw] mx-auto pb-20">
       
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 justify-center">
         
         {/* Left Sidebar - Desktop */}
         <div className="hidden lg:block w-64 flex-shrink-0">
@@ -74,7 +74,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
         </div>
 
         {/* Right Content Area */}
-        <div className="flex-grow">
+        <div className="flex-grow max-w-4xl">
           
           {/* Sort Controls Panel */}
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200 dark:border-gray-800">
@@ -100,10 +100,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
                 className="group cursor-pointer"
                 onClick={() => window.open(article.link, '_blank')}
               >
-                <div className="flex flex-row bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden p-2 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 items-stretch h-48 md:h-56">
+                <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden p-2 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 items-stretch h-auto">
                     
-                    {/* Cover Image Container - Fixed width, maintains aspect ratio */}
-                    <div className="w-1/3 md:w-[45%] shrink-0 rounded-xl overflow-hidden relative bg-gray-100 dark:bg-gray-900 transform-gpu">
+                    {/* Cover Image Container - Responsive aspect ratio 900:383 */}
+                    <div className="w-full md:w-[45%] aspect-[900/383] shrink-0 rounded-xl overflow-hidden relative bg-gray-100 dark:bg-gray-900 transform-gpu">
                         {article.coverImage ? (
                              <img 
                              src={article.coverImage} 

@@ -1,15 +1,3 @@
-const landscapeOriginals = import.meta.glob('/src/assets/photography/landscape/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
-
-const humanityOriginals = import.meta.glob('/src/assets/photography/humanity/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
-
-const spaceOriginals = import.meta.glob('/src/assets/photography/space/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
-
-// Helper to find thumbnail image (preferring optimized version)
-const getThumbnailUrl = (images: Record<string, string>): string => {
-  const entries = Object.entries(images);
-  const thumbnail = entries.find(([path]) => path.toLowerCase().includes('thumbnail'));
-  return thumbnail ? thumbnail[1] : (Object.values(images)[0] || '');
-};
 
 // Define a shared data structure to ensure media links are always synced
 export const PROJECT_DATA = [
@@ -126,13 +114,12 @@ export const PROJECT_DATA = [
       roleDetail: "Independently completed the entire cinematography and post-production color grading."
     }
   },
-  // Photography - Set images to empty string to trigger "Preview Deploying" fallback
+  // Photography - Manually configured with links
   {
     id: 'p1',
     common: {
       category: 'Photography',
-      image: getThumbnailUrl(landscapeOriginals),
-      gallery: Object.values(landscapeOriginals)
+      image: 'https://lun3cy.notion.site/image/attachment%3A26b52a3b-9696-4adb-8fa8-b5ffd33a21ad%3A_FZK8381.jpg?table=block&id=2c0f4f61-90b0-80a2-870b-d5d5ff82297f&spaceId=bfa23b18-0167-4223-aea0-06f1efb0e882&width=1420&userId=&cache=v2',
     },
     zh: {
       title: '风景',
@@ -159,8 +146,7 @@ export const PROJECT_DATA = [
     id: 'p2',
     common: {
       category: 'Photography',
-      image: getThumbnailUrl(humanityOriginals),
-      gallery: Object.values(humanityOriginals)
+      image: 'https://lun3cy.notion.site/image/attachment%3Adda84365-a81a-4dbe-8eb2-371a2c1bd3b5%3Athumbnail.jpg?table=block&id=2c0f4f61-90b0-80bb-aa32-f547a50011ea&spaceId=bfa23b18-0167-4223-aea0-06f1efb0e882&width=1420&userId=&cache=v2',
     },
     zh: {
       title: '人文纪实',
@@ -187,8 +173,7 @@ export const PROJECT_DATA = [
     id: 'p3',
     common: {
       category: 'Photography',
-      image: getThumbnailUrl(spaceOriginals),
-      gallery: Object.values(spaceOriginals)
+      image: 'https://lun3cy.notion.site/image/attachment%3A65586933-2321-4dab-8999-80e22fd0d28e%3Athumbnail.jpg?table=block&id=2c0f4f61-90b0-8068-b292-d4a27f4660c2&spaceId=bfa23b18-0167-4223-aea0-06f1efb0e882&width=1420&userId=&cache=v2',
     },
     zh: {
       title: '空间',
@@ -219,9 +204,9 @@ export const PROJECT_DATA = [
       image: 'https://www.figma.com/file/cRFVFLypB290MP6ImMgiPd/thumbnail?ver=thumbnails/07ca532d-7cc0-4922-b659-949b3193cfc5',
       figmaUrl: 'https://www.figma.com/design/cRFVFLypB290MP6ImMgiPd/%E5%A4%A7%E5%B9%BF%E8%B5%9B-%7C-%E5%8D%B3%E6%97%B6%E8%AE%BE%E8%AE%A1-%E5%BE%81%E8%BE%B0%C2%B7HMI%E6%99%BA%E8%83%BD%E5%BA%A7%E8%88%B1%E8%AE%BE%E8%AE%A1?node-id=55-2&t=7dPgyLMJDD32pFp4-1', 
       gallery: [
-        { thumbnail: 'https://picsum.photos/800/600?random=11', original: 'https://picsum.photos/800/600?random=11' },
-        { thumbnail: 'https://picsum.photos/800/600?random=12', original: 'https://picsum.photos/800/600?random=12' },
-        { thumbnail: 'https://picsum.photos/800/600?random=13', original: 'https://picsum.photos/800/600?random=13' }
+        'https://picsum.photos/800/600?random=11',
+        'https://picsum.photos/800/600?random=12',
+        'https://picsum.photos/800/600?random=13'
       ]
     },
     zh: {

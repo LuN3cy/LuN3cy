@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { PROJECTS, CATEGORY_LABELS } from '../constants';
 import { Category, Language, Project } from '../types';
+import { PHOTOGRAPHY_GALLERY } from '../src/data/photography';
 import { ArrowUpRight, X, Terminal, MessageCircle, IdCard, Github, ExternalLink } from 'lucide-react';
 
 interface PortfolioSectionProps {
@@ -224,40 +225,43 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                             {selectedProject.description}
                         </p>
                         
-                        {selectedProject.gallery && selectedProject.gallery.length > 0 ? (
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
-                                {selectedProject.gallery.map((item, idx) => (
-                                    <div 
-                                        key={idx} 
-                                        className="aspect-square overflow-hidden cursor-zoom-in relative group rounded-lg shadow-sm hover:shadow-md will-change-transform transform-gpu"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            const lightbox = document.getElementById('lightbox-overlay');
-                                            const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
-                                            if (lightbox && lightboxImg) {
-                                                lightboxImg.src = item;
-                                                lightbox.classList.remove('hidden');
-                                                lightbox.classList.add('flex');
-                                            }
-                                        }}
-                                    >
-                                        <img 
-                                            src={item} 
-                                            alt={`${selectedProject.title} ${idx + 1}`} 
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 will-change-transform transform-gpu backface-hidden opacity-0" 
-                                            onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
-                                        />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200"></div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="flex flex-col items-center justify-center h-64 w-full border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-[2rem]">
-                                <p className="text-gray-400 font-mono">No images found in local folder.</p>
-                            </div>
-                        )}
+                        {(() => {
+                            const gallery = selectedProject.gallery || PHOTOGRAPHY_GALLERY[selectedProject.id];
+                            return gallery && gallery.length > 0 ? (
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+                                    {gallery.map((item, idx) => (
+                                        <div 
+                                            key={idx} 
+                                            className="aspect-square overflow-hidden cursor-zoom-in relative group rounded-lg shadow-sm hover:shadow-md will-change-transform transform-gpu"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const lightbox = document.getElementById('lightbox-overlay');
+                                                const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+                                                if (lightbox && lightboxImg) {
+                                                    lightboxImg.src = item;
+                                                    lightbox.classList.remove('hidden');
+                                                    lightbox.classList.add('flex');
+                                                }
+                                            }}
+                                        >
+                                            <img 
+                                                src={item} 
+                                                alt={`${selectedProject.title} ${idx + 1}`} 
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 will-change-transform transform-gpu backface-hidden opacity-0" 
+                                                onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
+                                            />
+                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200"></div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center h-64 w-full border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-[2rem]">
+                                    <p className="text-gray-400 font-mono">No images found in local folder.</p>
+                                </div>
+                            );
+                        })()}
                     </div>
                  ) : (
                     // DEFAULT LAYOUT FOR OTHER CATEGORIES
