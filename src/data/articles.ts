@@ -261,8 +261,8 @@ export const ARTICLE_DATA = [
     id: 'a16',
     common: {
       category: ArticleCategory.DIT,
-      link: 'https://mp.weixin.qq.com/s/r3aEEmZhOiHRPPJpxQmeHQ',
-      coverImage: 'https://lun3cy.notion.site/image/attachment%3Ad7022488-9838-4218-b0b7-e75f85b5de18%3A%E5%91%A8%E6%8A%A5%E5%B0%81%E9%9D%A2.png?table=block&id=2c4f4f61-90b0-80c9-afbf-de2e6c571bf4&spaceId=bfa23b18-0167-4223-aea0-06f1efb0e882&width=1420&userId=&cache=v2',
+      link: 'https://mp.weixin.qq.com/s/eoP6GTzU2YRFyDhSO4xIeA',
+      coverImage: 'https://mmbiz.qpic.cn/mmbiz_png/MpZIibj0bjSxzUaAR94G9zwsXeNgfxyYVCWUXibDRFcyKPibx88Iw1l2On1wpfoicicWIRPFm6Nibp6DJR7kq9WaGrzA/640?wx_fmt=png&from=appmsg',
       date: '2025-12-09'
     },
     zh: {
