@@ -540,22 +540,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
                        </div>
 
-                       {/* Gallery */}
-                       {displayProject.gallery && displayProject.gallery.length > 0 && (
-                          <div className="mt-16 md:mt-24 border-t border-gray-200 dark:border-gray-800 pt-16">
-                             <h3 className="text-2xl font-black uppercase tracking-widest text-black dark:text-white mb-8">
-                               {language === 'zh' ? '项目展示' : 'Project Gallery'}
-                             </h3>
-                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                               {displayProject.gallery.map((img, idx) => (
-                                 <div key={idx} className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-                                    <img src={img} alt={`${displayProject.title} gallery ${idx + 1}`} className="w-full h-auto object-cover" />
-                                 </div>
-                               ))}
-                             </div>
-                          </div>
-                       )}
-
                      </div>
                    </>
                  )}
