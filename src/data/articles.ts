@@ -273,6 +273,21 @@ export const ARTICLE_DATA = [
     }
   },
   {
+    id: 'a17',
+    common: {
+      category: ArticleCategory.DIT,
+      link: 'https://mp.weixin.qq.com/s/sAIYq8gaezAumyIbGHiJ_w',
+      coverImage: 'https://mmbiz.qpic.cn/mmbiz_png/MpZIibj0bjSym38IftGicAWNwhwavzH9hRJCJlUmsduFfK5106ZH7iaX7E8bscy3BFp4tQiaZeSslObpcsIGXEaF1Q/640?wx_fmt=png&from=appmsg&tp=wxpic&wxfrom=5&wx_lazy=1#imgIndex=1',
+      date: '2025-12-11'
+    },
+    zh: {
+      title: '感谢Gemini3，我的第一版个人网站上线了',
+    },
+    en: {
+      title: 'Thanks to Gemini3, My First Version of Personal Website is Finally Online',
+    }
+  },
+  {
     id: 'l1',
     common: {
       category: ArticleCategory.LUNA,
