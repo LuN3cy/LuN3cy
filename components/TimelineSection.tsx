@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { EDUCATION_DATA } from '../src/data/education';
-import { Language, Experience, HonorsData } from '../types';
+import { Language } from '../types';
 import { ArrowUpRight, X, Hourglass } from 'lucide-react';
 
 interface TimelineSectionProps {
@@ -11,8 +11,8 @@ interface TimelineSectionProps {
 
 export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) => {
   const content = EDUCATION_DATA[language];
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [honors, setHonors] = useState<HonorsData | null>(null);
+  const experiences = content.experiences;
+  const honors = content.honors;
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,35 +52,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
     }
   }, [isModalOpen]);
 
-  const EMBEDDED_ENC = { "salt":"EcOXc5swzo2Lu41zwrFchw==","iv":"lYY8TsdvDRwko0GD","ct":"ByxLZ94zSF2snEmi+TyVxiZawHUsxRHC3QZU735eE83Gi3lbsDJpB3xuMJ/+z0fqx7sGXpclgE6A0baW710hkGj3AYGD50z6K42MXgkCI1ThK72UwOZnN/HCQd1dAnd4DkNowMhLql+B0DHP4acFc8sSpm0GNLwajpitKa9R4P1qEoD08yTbI6IjDHXZ80OoHFWbWWDnX+E0RTlMe/qJPJ0m3B8TLjl9IqF6E88TWicEtLHvHhJjiz86jnQE9hul9i53opHrTL0CEL0NFt6cT+qcR7Hq30DImkAMk8x0VFNiIHkBGUn4QkpwuMi76uV066hEadFG+aq3L2tg7+7DM1o0oQ9NMycqBfHpLWCypGTm3baN2kd6MRdeNwhHxMuTNwex6yR+Bs4I4R5eQ7qyKRrj3rRbVsgugYQG6HSW0QLCaUi1gzEcBluis05KDscdokDpS3PnLA9wdjYmB0DI3ZK6b6NM0ufB4WcpBsrG/SOKWqScRJWesTj42FcBiqvtRpoUX5DN+wi9r4M/oeQy1MLbGRzvtjMAFvgjvxfScdR8i/xIL/ZpCezN+B/MJRy17pWt4rItzzeHwLtOJirUUnXO4NKnBhm3EoC05PSjDhxH0ZePATsuJ780hmza124TxPJ5z7eAMDfNgKtxtZFGXga5YWF3DhhHCCWNum1irRh/W7RzrFaAZVnovBmJdQ5/PONw6W7xYmDOz5qXK4l5siOJqNKgKJTH3dKXFVH1gpCAQNJ6hLPoUawsUaP67tDBlwv5TBXkdLnfqNRFZP8vtmmiGa48V7VJC30D+Dzlqm3gbokoq7NcC8XZPXl5cRT0dQEPBZGakxxCMHoTOAYuEo9ZEZrChxqibU1/pKOuS9jtM5da47g28m2OElZy8/3yDhly1nb7a7lz7yN/uWb51D2xQ8bDvaylZIfcdcPb+kSbPXPWR9Snza5/tGtQbqwu0kmS+OJAjQMS3gKVtRxnxrMeV2dlRxEBOObjhqJNHBxj9kPJH9TRSZjCGml8u9xjdkaAJPbvCSKetEKswrK5BlnoSzFCVjIhOB9CETw9yrNzBMp7Qa7pATIZ8R3hjBfPyss2HXZISk1LZ48k66ZCVr64r/Y7WBy1ADbMyCJl8pnPDczg+Z0ApmxBFnOWcPnTqqMohXFpL7dG7rlAiSPTFG4H611WsotNgWvzKPldEBZyWDgpkxKosEEsPrIoslbxWlwSsQ69v6x2dMr7yNiPiJ15pP76bLy19Sz0NTdgwsnCRSQ0jiV3s5LXHUfDBs4dtvoibVNj26rKkd2v74kfRVXt6DsAbg4ubYjJ0byk693d78pf/vFKbf8M4cYSKLnM0lfizSwfEkkpL5dSmPpfkd0nzLxeFDZJDH/LYsC2bVAiLCJlyZ30vq72ERaZzsBURFpIgXxdfjIOuH63j0MlqTOaO9PWPPUEJ6TqF/fBIzMnBZWrCa8Ak5hM8VwRhGK0O24Yfxv2ufH0oWwaBUdpo7aaW8HLYfMAam7nuNWD717t8g1veN9++gYs8p1A3lPvokEvSZs/nuxrjV6Gz+sB2lTsd5lSGnqdFmdgzpBeM6nuNlnzeUGuGYgJcJ3St33LCXgRplusMCAXSPKRuItPfGfEYcwFFHN1lzoKmEHyRfPWiXkypG8NcNxJ8Mi0aDNP7B+CG285Q3tvD/is/rtgw94mJ7/xSceruqFAO6nth5ksbU6VyNEw5fjkNmpVasiwBDda2eV8H2L+A4Bru6YE16TDq/eSRPbQYpQp92JiMP6iE+CSpprOtIpOY9iC9WT31aWneRWp/k2N/Q4mP9wS9ftzgBEY3PJdkuWhArtqqZ37rS5H2N1xccWdp1ewfrmNJXCvC3/Flg6h52ERcqx4utgDqDyinnJPMUHqad7mjGo8tb276FFkzCx7nV8nl54sx7vG8fIPNJFPswb" };
-
-  const base64ToBytes = (b64: string) => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-  const deriveKey = async (password: string, saltB64: string) => {
-    const enc = new TextEncoder();
-    const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
-    const salt = base64ToBytes(saltB64);
-    return crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt, iterations: 250000, hash: 'SHA-256' },
-      keyMaterial,
-      { name: 'AES-GCM', length: 256 },
-      false,
-      ['decrypt']
-    );
-  };
-  const decryptPayload = async (answer: string) => {
-    try {
-      const payload = EMBEDDED_ENC;
-      const key = await deriveKey(answer, payload.salt);
-      const iv = base64ToBytes(payload.iv);
-      const ct = base64ToBytes(payload.ct);
-      const buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
-      const text = new TextDecoder().decode(buf);
-      const data = JSON.parse(text);
-      const localeData = data[language] ?? data;
-      setExperiences(Array.isArray(localeData.experiences) ? localeData.experiences : []);
-      setHonors(localeData.honors || { scholarships: [], titles: [], competitions: [] });
-    } catch {}
-  };
+  const decryptPayload = () => {};
 
   const handleUnlockSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -288,6 +288,21 @@ export const ARTICLE_DATA = [
     }
   },
   {
+    id: 'a18',
+    common: {
+      category: ArticleCategory.DIT,
+      link: 'https://mp.weixin.qq.com/s/QvHvVmrtPJK7YSxb_lMqGQ',
+      coverImage: 'https://mmbiz.qpic.cn/mmbiz_png/MpZIibj0bjSzpBHoh0Obpk1sInraKkCbLibgO9rSSdm0XibgdpfADcvvoeWhkSd5mfEOTW9hdk28kfkPEScCG8zAA/640?wx_fmt=png&from=appmsg',
+      date: '2025-12-12'
+    },
+    zh: {
+      title: 'Md2Design：更简单、更美观的图文卡片生成器',
+    },
+    en: {
+      title: 'Md2Design: A Simple and Beautiful Markdown to Graphic Card Generator',
+    }
+  },
+  {
     id: 'l1',
     common: {
       category: ArticleCategory.LUNA,
