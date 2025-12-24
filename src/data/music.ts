@@ -24,5 +24,12 @@ export const MUSIC_PLAYLIST: Song[] = [
     artist: "Mixed Artists",
     cover: "/music/covers/lofi-cat-night.jpg", 
     audio: "/music/audio/Sleepless nights - lofi hiphop mix pt.2.mp3"
+  },
+  {
+    id: "local-02",
+    title: "Island - Nujabes/Uyama Hiroto/Haruka Nakamura",
+    artist: "Nujabes/Uyama Hiroto/Haruka Nakamura",
+    cover: "/music/covers/spiritual state.jpg", // 确保文件名对应
+    audio: "/music/audio/Nujabes,Uyama Hiroto,haruka nakamura - Island (feat. Uyama Hiroto & haruka nakamura).mp3"     // 确保文件名对应
   }
 ];

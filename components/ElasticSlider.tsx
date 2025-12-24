@@ -113,25 +113,27 @@ const ElasticSlider: React.FC<ElasticSliderProps> = ({
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
       >
-        {/* Track Background */}
-        <div className="absolute w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden transition-all duration-300 ease-out group-hover:h-3">
-           {/* Fill */}
-           <div 
-             className="h-full bg-black dark:bg-white rounded-full transition-all duration-100 ease-linear"
-             style={{ width: `${percentage}%` }}
-           />
-        </div>
+        <div className="relative w-full h-full flex items-center">
+          {/* Track Background */}
+          <div className="absolute w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden transition-transform duration-300 ease-out group-hover:scale-y-[1.5] will-change-transform transform-gpu">
+             {/* Fill */}
+             <div 
+               className={`h-full w-full bg-black dark:bg-white rounded-full origin-left will-change-transform ${isDragging ? '' : 'transition-transform duration-200 ease-out'}`}
+               style={{ transform: `scaleX(${percentage / 100})` }}
+             />
+          </div>
 
-        {/* Elastic Thumb / Glow Effect */}
-        <div 
-          className="absolute h-6 w-6 bg-white dark:bg-zinc-200 rounded-full shadow-lg border border-zinc-200 dark:border-zinc-700 transform transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] pointer-events-none"
-          style={{ 
-            left: `${percentage}%`, 
-            transform: `translate(-50%, 0) scale(${isDragging ? 1.5 : 1})` 
-          }}
-        >
-          {/* Inner Dot */}
-          <div className={`absolute inset-0 m-auto w-2 h-2 rounded-full bg-black dark:bg-zinc-900 transition-all duration-300 ${isDragging ? 'scale-50' : 'scale-100'}`} />
+          {/* Elastic Thumb / Glow Effect */}
+          <div 
+            className="absolute left-0 h-6 w-6 bg-white dark:bg-zinc-200 rounded-full shadow-lg border border-zinc-200 dark:border-zinc-700 transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] pointer-events-none will-change-transform transform-gpu"
+            style={{ 
+              left: `${percentage}%`,
+              transform: `translate3d(-50%, 0, 0) scale(${isDragging ? 1.5 : 1})`,
+            }}
+          >
+            {/* Inner Dot */}
+            <div className={`absolute inset-0 m-auto w-2 h-2 rounded-full bg-black dark:bg-zinc-900 transition-all duration-300 ${isDragging ? 'scale-50' : 'scale-100'}`} />
+          </div>
         </div>
       </div>
 

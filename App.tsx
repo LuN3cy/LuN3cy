@@ -691,7 +691,7 @@ function App() {
             className="pointer-events-auto bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-full font-bold text-xl shadow-2xl animate-fade-in hover:scale-110 transition-transform flex items-center gap-3 cursor-pointer"
           >
             <RotateCcw size={24} />
-            {language === 'zh' ? '恢复秩序' : 'Restore Order'}
+            {language === 'zh' ? '变回去' : 'Go Back'}
           </button>
         </div>
       )}
