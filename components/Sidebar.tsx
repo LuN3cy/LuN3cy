@@ -68,9 +68,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
                 className={`
-                  text-base md:text-xl font-bold uppercase tracking-wide transition-colors duration-200 relative group whitespace-nowrap
+                  text-base md:text-xl font-bold uppercase tracking-wide transition-colors duration-200 relative group whitespace-nowrap px-1
                   ${isActive ? 'text-black dark:text-white' : 'text-gray-400 hover:text-black dark:hover:text-white'}
                 `}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 {item.label}
                 {/* Underline for hover/active */}
