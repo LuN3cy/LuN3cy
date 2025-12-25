@@ -29,6 +29,12 @@ function App() {
   const [gravityActive, setGravityActive] = useState(false);
 
   const startViewTransition = (update: () => void) => {
+    // Disable view transitions on mobile to prevent flickering and performance issues
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      update();
+      return;
+    }
+
     const anyDoc = document as any;
     if (anyDoc && typeof anyDoc.startViewTransition === 'function') {
       anyDoc.startViewTransition(update);
