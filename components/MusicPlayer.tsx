@@ -22,9 +22,36 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
   const [duration, setDuration] = useState(0);
   
   const audioRef = useRef<HTMLAudioElement>(null);
+  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const currentSong = MUSIC_PLAYLIST[currentSongIndex];
 
   const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Clear fade interval on unmount
+  useEffect(() => {
+    return () => {
+        if (fadeIntervalRef.current) {
+            clearInterval(fadeIntervalRef.current);
+        }
+    };
+  }, []);
+
+  // Preload covers for smoother transitions
+  useEffect(() => {
+    const indicesToPreload = [
+      currentSongIndex,
+      (currentSongIndex + 1) % MUSIC_PLAYLIST.length,
+      (currentSongIndex - 1 + MUSIC_PLAYLIST.length) % MUSIC_PLAYLIST.length
+    ];
+    
+    indicesToPreload.forEach(index => {
+        const song = MUSIC_PLAYLIST[index];
+        if (song?.cover) {
+            const img = new Image();
+            img.src = resolveAssetPath(song.cover);
+        }
+    });
+  }, [currentSongIndex]);
   
   // Auto-show prompt after a delay
   useEffect(() => {
@@ -38,19 +65,47 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : volume;
-      if (isPlaying) {
-        // Need to handle autoplay restrictions
-        const playPromise = audioRef.current.play();
+      const audio = audioRef.current;
+      const targetVolume = isMuted ? 0 : volume;
+      const finalTarget = isPlaying ? targetVolume : 0;
+
+      // Handle Play Start
+      if (isPlaying && audio.paused) {
+        audio.volume = 0;
+        const playPromise = audio.play();
         if (playPromise !== undefined) {
           playPromise.catch(error => {
             console.log("Autoplay prevented:", error);
             setIsPlaying(false);
           });
         }
-      } else {
-        audioRef.current.pause();
       }
+
+      // Clear previous fade
+      if (fadeIntervalRef.current) {
+        clearInterval(fadeIntervalRef.current);
+      }
+
+      // Start Fade Animation
+      fadeIntervalRef.current = setInterval(() => {
+        const current = audio.volume;
+        // Use a slightly larger step for quicker response (0.1 = 10% per 50ms -> 0.5s fade)
+        const step = 0.1; 
+        const diff = finalTarget - current;
+
+        if (Math.abs(diff) < step) {
+          audio.volume = finalTarget;
+          if (!isPlaying && !audio.paused) {
+            audio.pause();
+          }
+          if (fadeIntervalRef.current) {
+            clearInterval(fadeIntervalRef.current);
+            fadeIntervalRef.current = null;
+          }
+        } else {
+          audio.volume = current + (diff > 0 ? step : -step);
+        }
+      }, 50);
     }
   }, [isPlaying, currentSongIndex, isMuted, volume]);
 

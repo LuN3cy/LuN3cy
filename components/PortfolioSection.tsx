@@ -11,6 +11,32 @@ interface PortfolioSectionProps {
   externalFilter?: string; // Controlled by parent if needed
 }
 
+const GalleryImage = ({ src, alt, onClick }: { src: string, alt: string, onClick: (e: React.MouseEvent) => void }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div 
+      className="aspect-square overflow-hidden cursor-zoom-in relative group rounded-lg shadow-sm hover:shadow-md will-change-transform transform-gpu"
+      onClick={onClick}
+    >
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse flex items-center justify-center z-10">
+             <div className="w-6 h-6 border-2 border-gray-300 dark:border-gray-600 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+      <img 
+        src={src} 
+        alt={alt} 
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 will-change-transform transform-gpu backface-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+        onLoad={() => setIsLoaded(true)}
+      />
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 z-20"></div>
+    </div>
+  );
+};
 
 export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, externalFilter }) => {
   const [filter, setFilter] = useState<string>('All');
@@ -337,27 +363,17 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                         {(() => {
                             const gallery = displayProject.gallery || PHOTOGRAPHY_GALLERY[displayProject.id];
                             return gallery && gallery.length > 0 ? (
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+                                <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
                                     {gallery.map((item, idx) => (
-                                        <div 
-                                            key={idx} 
-                                            className="aspect-square overflow-hidden cursor-zoom-in relative group rounded-lg shadow-sm hover:shadow-md will-change-transform transform-gpu"
+                                        <GalleryImage 
+                                            key={idx}
+                                            src={item}
+                                            alt={`${displayProject.title} ${idx + 1}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setLightboxIndex(idx);
                                             }}
-                                        >
-                                            <img 
-                                                src={item} 
-                                                alt={`${displayProject.title} ${idx + 1}`} 
-                                                loading="lazy"
-                                                decoding="async"
-                                                referrerPolicy="no-referrer"
-                                                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 will-change-transform transform-gpu backface-hidden opacity-0" 
-                                                onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
-                                            />
-                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200"></div>
-                                        </div>
+                                        />
                                     ))}
                                 </div>
                             ) : (
