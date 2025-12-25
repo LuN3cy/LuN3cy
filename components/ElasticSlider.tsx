@@ -34,6 +34,12 @@ const ElasticSlider: React.FC<ElasticSliderProps> = ({
 
   const percentage = Math.min(100, Math.max(0, (currentValue / maxValue) * 100));
 
+  // Keep latest onChange ref to avoid re-binding effects
+  const onChangeRef = useRef(onChange);
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
   const handleInteraction = (clientX: number) => {
     if (!sliderRef.current) return;
     const rect = sliderRef.current.getBoundingClientRect();
@@ -52,8 +58,8 @@ const ElasticSlider: React.FC<ElasticSliderProps> = ({
       setInternalValue(newValue);
     }
     
-    if (onChange) {
-      onChange(newValue);
+    if (onChangeRef.current) {
+      onChangeRef.current(newValue);
     }
   };
 
@@ -76,6 +82,7 @@ const ElasticSlider: React.FC<ElasticSliderProps> = ({
 
     const handleTouchMove = (e: TouchEvent) => {
       if (isDragging) {
+        if (e.cancelable) e.preventDefault(); // Prevent scrolling while dragging
         handleInteraction(e.touches[0].clientX);
       }
     };
@@ -87,7 +94,8 @@ const ElasticSlider: React.FC<ElasticSliderProps> = ({
     if (isDragging) {
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleUp);
-      window.addEventListener('touchmove', handleTouchMove);
+      // Use passive: false to allow preventing default behavior (scrolling)
+      window.addEventListener('touchmove', handleTouchMove, { passive: false });
       window.addEventListener('touchend', handleUp);
     }
 
@@ -97,7 +105,7 @@ const ElasticSlider: React.FC<ElasticSliderProps> = ({
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleUp);
     };
-  }, [isDragging, maxValue, stepSize, isStepped, onChange, isControlled]);
+  }, [isDragging, maxValue, stepSize, isStepped, isControlled]);
 
   return (
     <div className="flex items-center gap-3 w-full select-none touch-none">

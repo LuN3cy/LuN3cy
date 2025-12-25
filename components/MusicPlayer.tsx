@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Music, ChevronDown, Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, ExternalLink } from 'lucide-react';
 import { MUSIC_PLAYLIST, Song } from '../src/data/music';
 import ElasticSlider from './ElasticSlider';
@@ -113,7 +113,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
     }
   };
 
-  const handleVolumeSliderChange = (newVal: number) => {
+  const handleVolumeSliderChange = useCallback((newVal: number) => {
     // newVal is 0-1000 from ElasticSlider
     // Human perception of loudness is logarithmic (Fechner's Law).
     // Using an exponential mapping for volume makes the slider feel linear to the ear.
@@ -124,7 +124,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
     if (newVal > 0 && isMuted) {
       setIsMuted(false);
     }
-  };
+  }, [isMuted]);
 
   const handleSeekStart = () => {
     setIsSeeking(true);
