@@ -23,7 +23,7 @@ export const HOME_DATA: Record<Language, HomeContent> = {
     ],
     intro: "不懂设计的摄影师不是一个好的产品经理。|边学边做，MVP生活，迈向全栈，但更看重实际价值。",
     selectedWorks: "精选作品",
-    years: "[ 2021 — 2025 ]"
+    years: "[ 2021 — 2026 ]"
   },
   en: {
     heroItems: [
@@ -34,6 +34,6 @@ export const HOME_DATA: Record<Language, HomeContent> = {
     ],
     intro: "A photographer who doesn't understand design is not a good product manager. | Learning by doing, living the MVP life, aiming for full-stack, but valuing actual impact above all.",
     selectedWorks: "Selected Works",
-    years: "[ 2021 — 2025 ]"
+    years: "[ 2021 — 2026 ]"
   }
 };

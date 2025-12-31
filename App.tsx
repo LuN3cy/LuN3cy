@@ -7,6 +7,7 @@ import { PortfolioSection } from './components/PortfolioSection';
 import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
 import { MusicPlayer } from './components/MusicPlayer';
+import { NewYearCelebration } from './components/NewYearCelebration';
 import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github } from 'lucide-react';
 import { NAV_ITEMS } from './src/data/navigation';
 import { CONTACT_DATA } from './src/data/contact';
@@ -25,6 +26,7 @@ function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   
   const [portfolioCategory, setPortfolioCategory] = useState<string>('All');
+  const [showNewYear, setShowNewYear] = useState(true);
   
   const [gravityActive, setGravityActive] = useState(false);
 
@@ -684,7 +686,7 @@ function App() {
 
          {/* Footer */}
          <footer className="w-full max-w-[96vw] mx-auto mt-32 border-t-2 border-black dark:border-white pt-12 flex flex-col md:flex-row justify-between items-center text-sm font-light text-gray-400 dark:text-gray-500 uppercase tracking-wide gap-4 transition-colors duration-300">
-            <p>© 2025 LUN3CY FAN</p>
+            <p>© 2026 LUN3CY FAN</p>
             <p>{content.footerDesign}</p>
          </footer>
       </main>
@@ -700,6 +702,14 @@ function App() {
             {language === 'zh' ? '变回去' : 'Go Back'}
           </button>
         </div>
+      )}
+
+      {showNewYear && (
+        <NewYearCelebration 
+          onClose={() => {
+            setShowNewYear(false);
+          }} 
+        />
       )}
     </div>
   );
