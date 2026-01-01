@@ -24,14 +24,70 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
 
   const handleHeadlineClick = (category: Category | null) => {
     if (category) {
-      // Navigate to portfolio and filter
-      // onNavigate('portfolio') is removed because onCategorySelect already handles navigation
       onCategorySelect(category);
     } else {
       // Show "Still Learning" Toast
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
     }
+  };
+
+  const renderHeadlineText = (item: any, index: number) => {
+    const isPhotographyVideography = 
+      item.text.includes('摄影摄像') || 
+      item.text.includes('Photography & Videography');
+
+    if (isPhotographyVideography) {
+      const parts = language === 'zh' 
+        ? [
+            { text: '摄影', category: Category.PHOTO },
+            { text: '摄像', category: Category.VIDEO }
+          ]
+        : [
+            { text: 'Photography', category: Category.PHOTO },
+            { text: '&', category: null },
+            { text: 'Videography', category: Category.VIDEO }
+          ];
+
+      return (
+        <h1 className={`
+          ${language === 'en' ? 'text-[8vw] lg:text-[6vw]' : 'text-[14vw] lg:text-[8vw]'} 
+          font-black tracking-tighter leading-tight text-black dark:text-white transition-all duration-300 whitespace-nowrap overflow-visible
+        `}>
+          {parts.map((part, pIndex) => (
+            <span 
+              key={pIndex}
+              className={`${part.category ? 'hover:opacity-70 cursor-pointer transition-opacity' : 'cursor-default'}`}
+              onClick={(e) => {
+                if (part.category) {
+                  e.stopPropagation();
+                  handleHeadlineClick(part.category);
+                }
+              }}
+            >
+              {part.text}
+            </span>
+          ))}
+          {/* Annotation */}
+          <span className="text-[0.3em] align-middle ml-2 lg:ml-4 text-gray-400 font-bold tracking-normal inline-block transform translate-y-[-0.1em]">
+            {item.annotation}
+          </span>
+        </h1>
+      );
+    }
+
+    return (
+      <h1 className={`
+        ${language === 'en' ? 'text-[8vw] lg:text-[6vw]' : 'text-[14vw] lg:text-[8vw]'} 
+        font-black tracking-tighter leading-tight text-black dark:text-white transition-all duration-300 whitespace-nowrap overflow-visible group-hover:opacity-70
+      `}>
+        {item.text}
+        {/* Annotation */}
+        <span className="text-[0.3em] align-middle ml-2 lg:ml-4 text-gray-400 font-bold tracking-normal inline-block transform translate-y-[-0.1em]">
+          {item.annotation}
+        </span>
+      </h1>
+    );
   };
 
   return (
@@ -44,18 +100,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
         <div className="lg:col-span-7 w-full">
             <div className="flex flex-col w-full mb-6 lg:mb-8">
               {heroItems.map((item, index) => (
-                <div key={index} className="group cursor-pointer" onClick={() => handleHeadlineClick(item.category || null)}>
-                  {/* Font size adjustment for English to prevent overflow */}
-                  <h1 className={`
-                    ${language === 'en' ? 'text-[8vw] lg:text-[6vw]' : 'text-[14vw] lg:text-[8vw]'} 
-                    font-black tracking-tighter leading-tight text-black dark:text-white transition-all duration-300 whitespace-nowrap overflow-visible group-hover:opacity-70
-                  `}>
-                    {item.text}
-                    {/* Annotation */}
-                    <span className="text-[0.3em] align-middle ml-2 lg:ml-4 text-gray-400 font-bold tracking-normal inline-block transform translate-y-[-0.1em]">
-                      {item.annotation}
-                    </span>
-                  </h1>
+                <div key={index} className="group cursor-pointer" onClick={() => !item.text.includes('摄影') && !item.text.includes('Photography') && handleHeadlineClick(item.category || null)}>
+                  {renderHeadlineText(item, index)}
                   {index < heroItems.length - 1 && (
                     <div className="w-full h-[1px] bg-black/10 dark:bg-white/10 my-2 md:my-4 transition-colors duration-300"></div>
                   )}

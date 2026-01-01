@@ -16,8 +16,7 @@ export interface HomeContent {
 export const HOME_DATA: Record<Language, HomeContent> = {
   zh: {
     heroItems: [
-      { text: "静态摄影", annotation: "（瞬间的永恒）", category: Category.PHOTO },
-      { text: "动态影像", annotation: "（作品积累较多）", category: Category.VIDEO },
+      { text: "摄影摄像", annotation: "（作品积累较多）", category: Category.VIDEO }, // category is kept as VIDEO but UI will split
       { text: "平面交互", annotation: "（当前主攻，兴趣所在）", category: Category.DESIGN },
       { text: "应用开发", annotation: "（vibe builder）", category: Category.DEV },
       { text: "炒粉炒饭", annotation: "（还在学）", category: null }
@@ -28,8 +27,7 @@ export const HOME_DATA: Record<Language, HomeContent> = {
   },
   en: {
     heroItems: [
-      { text: "Photography", annotation: "(Capturing Moments)", category: Category.PHOTO },
-      { text: "Videography", annotation: "(Extensive Portfolio)", category: Category.VIDEO },
+      { text: "Photography & Videography", annotation: "(Extensive Portfolio)", category: Category.VIDEO },
       { text: "Graphic & UI", annotation: "(Main Focus & Passion)", category: Category.DESIGN },
       { text: "Development", annotation: "(Vibe Coder)", category: Category.DEV },
       { text: "Cooking", annotation: "(Still Learning)", category: null }
