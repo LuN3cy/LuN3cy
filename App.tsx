@@ -7,7 +7,6 @@ import { PortfolioSection } from './components/PortfolioSection';
 import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
 import { MusicPlayer } from './components/MusicPlayer';
-import { NewYearCelebration } from './components/NewYearCelebration';
 import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github } from 'lucide-react';
 import { NAV_ITEMS } from './src/data/navigation';
 import { CONTACT_DATA } from './src/data/contact';
@@ -26,7 +25,6 @@ function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   
   const [portfolioCategory, setPortfolioCategory] = useState<string>('All');
-  const [showNewYear, setShowNewYear] = useState(true);
   
   const [gravityActive, setGravityActive] = useState(false);
 
@@ -666,51 +664,25 @@ function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black overflow-x-hidden transition-colors duration-300">
       
-      <MusicPlayer language={language} />
-      {/* Dynamic Navigation */}
       <Sidebar 
         activeTab={activeTab} 
-        setActiveTab={(tab) => startViewTransition(() => setActiveTab(tab))} 
+        onTabChange={(tab) => startViewTransition(() => setActiveTab(tab))}
         language={language}
-        toggleLanguage={toggleLanguage}
+        onLanguageToggle={toggleLanguage}
         theme={theme}
-        toggleTheme={toggleTheme}
+        onThemeToggle={toggleTheme}
         onTriggerGravity={triggerGravity}
+        gravityActive={gravityActive}
+        onResetGravity={resetGravity}
       />
 
-      {/* Main Content Area */}
-      <main className="w-full pt-40 pb-32 vt-page">
-         <div key={activeTab} className="animate-fade-in">
-           {renderContent()}
-         </div>
-
-         {/* Footer */}
-         <footer className="w-full max-w-[96vw] mx-auto mt-32 border-t-2 border-black dark:border-white pt-12 flex flex-col md:flex-row justify-between items-center text-sm font-light text-gray-400 dark:text-gray-500 uppercase tracking-wide gap-4 transition-colors duration-300">
-            <p>© 2026 LUN3CY FAN</p>
-            <p>{content.footerDesign}</p>
-         </footer>
-      </main>
-      
-      {/* Floating Reset Button for Gravity - Fixed Centering Wrapper */}
-      {gravityActive && (
-        <div className="fixed bottom-8 left-0 w-full flex justify-center z-[1001] pointer-events-none">
-          <button 
-            onClick={resetGravity}
-            className="pointer-events-auto bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-full font-bold text-xl shadow-2xl animate-fade-in hover:scale-110 transition-transform flex items-center gap-3 cursor-pointer"
-          >
-            <RotateCcw size={24} />
-            {language === 'zh' ? '变回去' : 'Go Back'}
-          </button>
+      <main className="flex-1 lg:ml-20 min-h-screen">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-12">
+          {renderContent()}
         </div>
-      )}
+      </main>
 
-      {showNewYear && (
-        <NewYearCelebration 
-          onClose={() => {
-            setShowNewYear(false);
-          }} 
-        />
-      )}
+      <MusicPlayer language={language} />
     </div>
   );
 }
