@@ -2,81 +2,28 @@ import { Project } from '../../types';
 
 export const PHOTOGRAPHY_PROJECTS: Project[] = [
   {
-    id: 'p1',
+    id: 'sample-1',
     common: {
-      category: 'Photography',
-      image: 'https://mmbiz.qpic.cn/mmbiz_jpg/MpZIibj0bjSym38IftGicAWNwhwavzH9hRqulRYy4XYt210iaN4wRicELqA79ywY3mmgyictP5C5NAJb5B9VhavibtMg/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=1',
+      category: 'Category Name',
+      image: 'https://via.placeholder.com/1920x1080?text=Project+Cover',
+      // bilibiliId: 'BVxxxxxxx' // For video
     },
     zh: {
-      title: '风景',
-      subtitle: '',
-      description: '山河仍在，只是故人改',
-      role: '',
-      tags: [],
+      title: '示例项目标题',
+      subtitle: '示例副标题',
+      description: '项目描述占位符。',
+      role: '角色',
+      tags: ['标签1', '标签2'],
       awards: [],
       concept: "",
       roleDetail: ""
     },
     en: {
-      title: 'Landscape',
-      subtitle: '',
-      description: 'Mountains May Depart',
-      role: '',
-      tags: [],
-      awards: [],
-      concept: "",
-      roleDetail: ""
-    }
-  },
-  {
-    id: 'p2',
-    common: {
-      category: 'Photography',
-      image: 'https://mmbiz.qpic.cn/mmbiz_jpg/MpZIibj0bjSym38IftGicAWNwhwavzH9hRcnbw6AdBMu1QHAdcibpxTfz5MhDESboc1Ny5NvXC90KTstEW33jDXTw/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=37',
-    },
-    zh: {
-      title: '人文纪实',
-      subtitle: '',
-      description: '回忆与瞬间',
-      role: '',
-      tags: [],
-      awards: [],
-      concept: "",
-      roleDetail: ""
-    },
-    en: {
-      title: 'Documentary',
-      subtitle: '',
-      description: 'Memories and moments',
-      role: '',
-      tags: [],
-      awards: [],
-      concept: "",
-      roleDetail: ""
-    },
-  },
-  {
-    id: 'p3',
-    common: {
-      category: 'Photography',
-      image: 'https://mmbiz.qpic.cn/mmbiz_jpg/MpZIibj0bjSym38IftGicAWNwhwavzH9hRsYUjlBeYKR2Vib1fUpYS1icJaftdGyuPbg70E1WxswADYA4LtLdCgicNA/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=52',
-    },
-    zh: {
-      title: '空间',
-      subtitle: '',
-      description: '那些一直塑造着我们的行为与感受的',
-      role: '',
-      tags: [],
-      awards: [],
-      concept: "",
-      roleDetail: ""
-    },
-    en: {
-      title: 'Space',
-      subtitle: '',
-      description: 'Those that have always shaped us',
-      role: '',
-      tags: [],
+      title: 'Example Project Title',
+      subtitle: 'Example Subtitle',
+      description: 'Project description placeholder.',
+      role: 'Role',
+      tags: ['Tag 1', 'Tag 2'],
       awards: [],
       concept: "",
       roleDetail: ""

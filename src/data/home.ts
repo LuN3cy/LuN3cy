@@ -21,9 +21,9 @@ export const HOME_DATA: Record<Language, HomeContent> = {
       { text: "应用开发", annotation: "（vibe builder）", category: Category.DEV },
       { text: "炒粉炒饭", annotation: "（还在学）", category: null }
     ],
-    intro: "不懂设计的摄影师不是一个好的产品经理。|边学边做，MVP生活，迈向全栈，但更看重实际价值。",
+    intro: "Your personal catchphrase or introduction goes here.",
     selectedWorks: "精选作品",
-    years: "[ 2021 — 2026 ]"
+    years: "[ 20XX — 20XX ]"
   },
   en: {
     heroItems: [
@@ -32,8 +32,8 @@ export const HOME_DATA: Record<Language, HomeContent> = {
       { text: "Development", annotation: "(Vibe Coder)", category: Category.DEV },
       { text: "Cooking", annotation: "(Still Learning)", category: null }
     ],
-    intro: "A photographer who doesn't understand design is not a good product manager. | Learning by doing, living the MVP life, aiming for full-stack, but valuing actual impact above all.",
+    intro: "Your personal catchphrase or introduction goes here.",
     selectedWorks: "Selected Works",
-    years: "[ 2021 — 2026 ]"
+    years: "[ 20XX — 20XX ]"
   }
 };
